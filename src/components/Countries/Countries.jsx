@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Loading from "../Loading/Loading";
 
 function Countries() {
   const [countries, setCountries] = useState([]);
@@ -18,6 +19,8 @@ function Countries() {
 
   useEffect(() => {
     const fetchData = async (retries = 3, delay = 1000) => {
+      setLoading(true);
+      console.log("Fetching data...");
       try {
         const response = await fetch(url, options);
         if (!response.ok) {
@@ -28,8 +31,10 @@ function Countries() {
           throw new Error("Network response was not ok");
         }
         const result = await response.json();
+        console.log("Data fetched successfully:", result);
         setCountries(result);
       } catch (error) {
+        console.error("Error fetching data:", error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -39,7 +44,7 @@ function Countries() {
     fetchData();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -48,6 +53,7 @@ function Countries() {
         Total Deaths 87,859
       </h1>
       <ol className="countries-list flex flex-col gap-3">
+        {loading && <Loading />}
         {countries.map((country) => (
           <li key={country.alpha3code} className="country-item">
             <div className="flex justify-between country-card p-4 bg-gray-800 shadow-lg rounded-lg hover:bg-purple-700 hover:text-white transition-colors transform hover:-translate-y-1">
