@@ -58,7 +58,7 @@ function Countries() {
           <li key={country.alpha3code} className="country-item">
             <div className="flex justify-between country-card p-4 bg-gray-800 shadow-lg rounded-lg hover:bg-purple-700 hover:text-white transition-colors transform hover:-translate-y-1">
               <h2 className="country-name text-gray-300">{country.name}</h2>
-              <h2 className="country-deaths text-gray-300">47,300</h2>
+              <h2 className="country-deaths text-gray-300">47,369</h2>
             </div>
           </li>
         ))}
